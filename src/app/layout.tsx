@@ -12,9 +12,24 @@ import { FaucetModal } from "@/components/FaucetModal/FaucetModal";
 import { fetchUserBalance } from "@/utils/cosmjs/user/fetchUserBalance";
 import { microAmountToAmount, taskQueueAddresses } from "@/utils";
 import { usePathname } from "next/navigation";
-import Link from 'next/link';
+import { WagmiProvider, createConfig, http } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { mainnet, sepolia } from 'wagmi/chains'
+import { useQuery } from '@tanstack/react-query';
+
 
 const inter = Inter({ subsets: ["latin"] });
+
+const config = createConfig({
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.id]: http('https://mainnet.example.com'),
+    [sepolia.id]: http('https://sepolia.example.com'),
+  },
+})
+
+// Create a QueryClient instance
+const queryClient = new QueryClient();
 
 /**
  * RootLayout component for the main layout structure of the application.
@@ -88,53 +103,57 @@ export default function RootLayout({
   }, [appStore.wallet.address]);
 
   return (
-    <html lang="en">
-      <body className={`${inter.className} dark antialiased bg-black`}>
-        <div className="flex h-[calc(100vh-32px)] text-black">
-          <Sidenav
-            navItems={[
-              ...taskQueueAddresses.map((item) => ({
-                label: item.title,
-                icon: "arrow_forward_ios",
-                active: pathname.includes(item.address),
-                href: `/avs/oracle/${item.address}`,
-              })),
-              {
-                label: "Betting Prompts",
-                icon: "star",
-                href: "/",
-                active: false,
-              },
-            ]}
-          />
-          <div className="w-full text-black">
-            <Topnav
-              walletAddress={appStore.wallet.address}
-              onConnectWalletClick={() => setWalletModalOpen(true)}
-              onDisconnectWalletClick={() => appStore.disconnectWallet()}
-              navItems={[
-              ]}
-              userBalance={userBalance}
-            />
-            <div className="p-6 overflow-y-scroll max-h-[calc(100vh-65px)]">
-              {children}
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <html lang="en">
+          <body className={`${inter.className} dark antialiased bg-black`}>
+            <div className="flex h-[calc(100vh-32px)] text-black">
+              <Sidenav
+                navItems={[
+                  ...taskQueueAddresses.map((item) => ({
+                    label: item.title,
+                    icon: "arrow_forward_ios",
+                    active: pathname.includes(item.address),
+                    href: `/avs/oracle/${item.address}`,
+                  })),
+                  {
+                    label: "Betting Prompts",
+                    icon: "star",
+                    href: "/",
+                    active: false,
+                  },
+                ]}
+              />
+              <div className="w-full text-black">
+                <Topnav
+                  walletAddress={appStore.wallet.address}
+                  onConnectWalletClick={() => setWalletModalOpen(true)}
+                  onDisconnectWalletClick={() => appStore.disconnectWallet()}
+                  navItems={[
+                  ]}
+                  userBalance={userBalance}
+                />
+                <div className="p-6 overflow-y-scroll max-h-[calc(100vh-65px)]">
+                  {children}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-        <WalletModal
-          onWalletClick={async (walletType) => await connectWallet(walletType)}
-          open={walletModalOpen}
-          setOpen={(open) => {
-            setWalletModalOpen(open);
-            handleFaucet();
-          }}
-        />
+            <WalletModal
+              onWalletClick={async (walletType) => await connectWallet(walletType)}
+              open={walletModalOpen}
+              setOpen={(open) => {
+                setWalletModalOpen(open);
+                handleFaucet();
+              }}
+            />
 
-        <FaucetModal
-          open={faucetModalOpen}
-          setOpen={(open) => setFaucetModalOpen(open)}
-        />
-      </body>
-    </html>
+            <FaucetModal
+              open={faucetModalOpen}
+              setOpen={(open) => setFaucetModalOpen(open)}
+            />
+          </body>
+        </html>
+      </QueryClientProvider>
+    </WagmiProvider>
   );
 }
