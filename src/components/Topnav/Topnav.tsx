@@ -71,7 +71,7 @@ const Topnav: React.FC<TopnavProps> = (props) => {
               className="text-black rounded-md ml-4 mr-2 text-sm py-2 px-2 font-bold bg-background-brand flex items-center"
             >
               <span className="material-icons text-white mr-1">sensors</span>
-              <span>Connect to Wallet</span>
+              <span className="text-white">Connect to Wallet</span>
             </button>
           )}
 
