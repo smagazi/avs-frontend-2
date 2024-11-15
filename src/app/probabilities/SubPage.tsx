@@ -9,4 +9,4 @@ const SubPage = ({ title, children }) => {
   );
 };
 
-export default SubPage; 
+export default SubPage;
