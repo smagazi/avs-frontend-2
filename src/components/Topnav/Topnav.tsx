@@ -42,9 +42,9 @@ const Topnav: React.FC<TopnavProps> = (props) => {
           {props.walletAddress ? (
             <>
               {props.userBalance !== undefined && (
-                <div className="flex items-center text-text-primary text-sm font-semibold ml-4 mr-4">
+                <div className="flex items-center text-black text-sm font-semibold ml-4 mr-4">
                   <span className="mr-1">{props.userBalance.toFixed(2)}</span>
-                  <span className="text-text-secondary">LAYER</span>
+                  <span className="text-black">LAYER</span>
                 </div>
               )}
               <div className="w-9 h-9 overflow-hidden rounded-md mr-2">
@@ -54,13 +54,13 @@ const Topnav: React.FC<TopnavProps> = (props) => {
                   alt="User Avatar"
                 />
               </div>
-              <p className="text-text-primary text-sm mr-2">
+              <p className="text-black text-sm mr-2">
                 {props.walletAddress.slice(0, 4)}...
                 {props.walletAddress.slice(-4)}
               </p>
               <button
                 onClick={() => setLogoutWindowOpen(!logoutWindowOpen)}
-                className="text-text-body mr-2 h-6"
+                className="text-black mr-2 h-6"
               >
                 <span className="material-icons">keyboard_arrow_down</span>
               </button>
@@ -68,7 +68,7 @@ const Topnav: React.FC<TopnavProps> = (props) => {
           ) : (
             <button
               onClick={props.onConnectWalletClick}
-              className="text-text-primary rounded-md ml-4 mr-2 text-sm py-2 px-2 font-bold bg-background-brand flex items-center"
+              className="text-black rounded-md ml-4 mr-2 text-sm py-2 px-2 font-bold bg-background-brand flex items-center"
             >
               <span className="material-icons mr-1">sensors</span>
               <span>Connect to Wallet</span>

@@ -1,6 +1,7 @@
 import React from "react";
 import classNames from "classnames";
 import { SidenavItemProps, SidenavProps } from "@/types/ui/sidenav";
+import ReviewCard from "@/components/ReviewCard";
 
 /**
  * Sidenav component for rendering a sidebar navigation menu.
@@ -30,22 +31,33 @@ const Sidenav: React.FC<SidenavProps> = (props) => {
                 target={item.target}
                 rel={
                   item.target === "_blank" ? "noopener noreferrer" : undefined
-                } // Add rel attribute for security reasons when target is _blank
+                }
                 className={classNames(
                   "flex items-center p-2 text-text-primary font-semibold text-base rounded-md cursor-pointer select-none hover:bg-background-interactive-hover",
                   { "!bg-background-interactive-selected": item.active }
                 )}
               >
-                {/* Icon */}
                 <span className="material-icons text-text-primary mr-4">
                   {item.icon}
                 </span>
-                {/* Label */}
                 {item.label}
               </a>
             </li>
           ))}
       </ul>
+
+      {/* New Section: In Review */}
+      <div className="mt-6">
+        <h2 className="text-lg font-bold text-text-primary">In Review</h2>
+        <div className="mt-2 space-y-2">
+          {/* Using ReviewCard component with proposedWinner prop */}
+          <ReviewCard title="Card Title 1" description="This is some basic text for card 1." proposedWinner="Yes" />
+          <ReviewCard title="Card Title 2" description="This is some basic text for card 2." proposedWinner="No" />
+          <ReviewCard title="Card Title 3" description="This is some basic text for card 3." proposedWinner="No" />
+          <ReviewCard title="Card Title 4" description="This is some basic text for card 4." proposedWinner="Yes" />
+
+        </div>
+      </div>
     </div>
   );
 };

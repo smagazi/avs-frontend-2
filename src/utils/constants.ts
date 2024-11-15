@@ -54,7 +54,7 @@ export const faucetAddress = "https://faucet.hack.layer.xyz/credit";
  */
 export const taskQueueAddresses: { title: string; address: string }[] = [
   {
-    title: "Square Task",
+    title: "Task Queue",
     address: "layer1dkewprupg2xcr4nvmztc5ekz5ed3cu5qzchmxq9rv7sz5s5kq3psjc7z9e",
   },
 ];

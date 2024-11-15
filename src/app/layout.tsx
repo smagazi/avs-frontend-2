@@ -12,6 +12,7 @@ import { FaucetModal } from "@/components/FaucetModal/FaucetModal";
 import { fetchUserBalance } from "@/utils/cosmjs/user/fetchUserBalance";
 import { microAmountToAmount, taskQueueAddresses } from "@/utils";
 import { usePathname } from "next/navigation";
+import Link from 'next/link';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -88,26 +89,30 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.className} dark antialiased`}>
-        <div className="flex h-[calc(100vh-32px)]">
+      <body className={`${inter.className} dark antialiased bg-black`}>
+        <div className="flex h-[calc(100vh-32px)] text-black">
           <Sidenav
-            navItems={taskQueueAddresses.map((item) => ({
-              label: item.title,
-              icon: "arrow_forward_ios",
-              active: pathname.includes(item.address),
-              href: `/avs/oracle/${item.address}`,
-            }))}
+            navItems={[
+              ...taskQueueAddresses.map((item) => ({
+                label: item.title,
+                icon: "arrow_forward_ios",
+                active: pathname.includes(item.address),
+                href: `/avs/oracle/${item.address}`,
+              })),
+              {
+                label: "Betting Prompts",
+                icon: "star",
+                href: "/",
+                active: false,
+              },
+            ]}
           />
-          <div className="w-full">
+          <div className="w-full text-black">
             <Topnav
               walletAddress={appStore.wallet.address}
               onConnectWalletClick={() => setWalletModalOpen(true)}
               onDisconnectWalletClick={() => appStore.disconnectWallet()}
               navItems={[
-                "Services",
-                taskQueueAddresses.find((task) =>
-                  pathname.includes(task.address)
-                )?.title || "",
               ]}
               userBalance={userBalance}
             />

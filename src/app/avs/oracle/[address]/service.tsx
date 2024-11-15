@@ -45,10 +45,8 @@ export default function Service({ address }: { address: string }) {
   return (
     <div>
       <section>
-        <h1 className="font-bold text-text-primary text-[26px] mb-4">Services</h1>
-        <div className="grid grid-cols-4 gap-4 pb-[40px] mb-[40px] border-b border-border-primary">
+        <h1 className="font-bold text-text-primary text-[26px] mb-4"></h1>
           <SubmitTask taskQueueAddress={address} />
-        </div>
       </section>
       <section>
         <h1 className="font-bold text-text-primary text-[26px] mb-4">Task Queue</h1>
