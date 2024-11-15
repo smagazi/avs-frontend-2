@@ -51,7 +51,7 @@ const Sidenav: React.FC<SidenavProps> = (props) => {
         <h2 className="text-lg font-bold text-text-primary">In Review</h2>
         <div className="mt-2 space-y-2">
           {/* Using ReviewCard component with proposedWinner prop */}
-          <ReviewCard title="Will the next presidential election be contested?" description="" proposedWinner="Yes" />
+          <ReviewCard title="Will the next presidential election be contested?" description="" proposedWinner="No" />
           <ReviewCard title="Will any presidential candidate win all 7 swing states?" description="" proposedWinner="No" />
           <ReviewCard title="Will it rain in NYC on 11/14/2024?" description="" proposedWinner="No" />
           <ReviewCard title="Will Shrithan's Fantasy Football team win the playoffs?" description="" proposedWinner="Yes" />
