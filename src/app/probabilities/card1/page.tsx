@@ -1,16 +1,20 @@
 "use client";
 import React from 'react';
-import { card1Data } from '../data/card1Data';
+import SubPage from '../SubPage';
 import Graph from '@/components/Graph';
+import { card1Data } from '../data/card1Data'; // Adjust the path as necessary
 
 const Card1 = () => {
   const { title, yesData, noData } = card1Data;
 
   return (
-    <div>
-      <h2 style={{ color: 'white', fontSize: '2rem' }}>{title}</h2>
+    <SubPage title={title}>
       <Graph title={title} yesData={yesData} noData={noData} />
-    </div>
+      <div>
+        <button style={{ margin: '0 10px', padding: '10px 20px', color: 'white', backgroundColor: 'green', borderRadius: '5%' }}>Yes</button>
+        <button style={{ margin: '0 10px', padding: '10px 20px', color: 'white', backgroundColor: 'red', borderRadius: '5%' }}>No</button>
+      </div>
+    </SubPage>
   );
 };
 
